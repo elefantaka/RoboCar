@@ -116,15 +116,29 @@ int melody[] = {
   NOTE_AS7, NOTE_F7,0,0,0,
   NOTE_D7, NOTE_B6, NOTE_D7, NOTE_G7, NOTE_E7,0,
   NOTE_D7, NOTE_C7, 0,0, NOTE_C7, NOTE_A6, NOTE_D7, 0, NOTE_A6, NOTE_G6,0,0,NOTE_D7, NOTE_C7,NOTE_E7,0,NOTE_D7,NOTE_C7
-};
+}; //BarbieGirl
 
 int melody2[]= {
-    NOTE_C7,NOTE_D7, NOTE_E7, NOTE_F7, NOTE_G7,NOTE_A7,NOTE_B7,NOTE_C8,
-    NOTE_D8,NOTE_E8, NOTE_F8,NOTE_G8
-};
+    NOTE_G7, NOTE_G7,NOTE_A7, NOTE_A7, NOTE_E7,NOTE_E7,NOTE_G7,
+    NOTE_G7, NOTE_G7,NOTE_A7, NOTE_A7, NOTE_E7,NOTE_E7,NOTE_G7,
+    NOTE_G7, NOTE_G7,NOTE_A7, NOTE_A7, NOTE_C8,NOTE_C8,NOTE_B7,NOTE_B7,NOTE_A7,NOTE_G7,NOTE_F7,
+    NOTE_F7, NOTE_F7,NOTE_G7, NOTE_G7, NOTE_D7,NOTE_D7,NOTE_F7,
+    NOTE_F7, NOTE_F7,NOTE_G7, NOTE_G7, NOTE_D7,NOTE_D7,NOTE_F7,
+    NOTE_F7, NOTE_F7,NOTE_G7, NOTE_G7, NOTE_B7,NOTE_B7,NOTE_A7,NOTE_A7,NOTE_G7,NOTE_F7,NOTE_E7
+}; //Kaczuszki
+
+int melody3[] = {
+  NOTE_C7, NOTE_C7, NOTE_D7, NOTE_D7,NOTE_E7, NOTE_E7,NOTE_F7, NOTE_F7, NOTE_G7, NOTE_G7, NOTE_G7, NOTE_AS7,NOTE_D8,NOTE_C8, 0, NOTE_C9
+}; //KucezBronksu
+
+int melody4[] = {
+  NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_A7,0,
+  NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_D7,NOTE_C7,0,
+  NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_F7,NOTE_A7,0,
+  NOTE_C8,NOTE_C8,NOTE_AS7,NOTE_C8,NOTE_A7,NOTE_F7
+}; //Macarena
 
 
-//Mario main them tempo
 int tempo[] = {
  
   12, 12, 12, 12,
@@ -145,6 +159,52 @@ int tempo[] = {
   12, 12, 12, 12,
   12, 12, 12, 12,
   12, 12, 12, 12,
+};
+
+int tempo2[]= {
+  16,16,16,16,
+  16,16,8,
+  16,16,16,16,
+  16,16,8,
+  16,16,16,16,
+  16,16,8,
+  8,8,8,8,
+  16,16,16,16,
+  16,16,8,
+  16,16,16,16,
+  16,16,8,
+  16,16,16,16,
+  16,16,8,
+  8,8,8,8,
+};
+
+int tempo3[] = {
+ 
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+  12, 12, 24, 24,
+  12, 12, 12, 12,
+ 
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+ 
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+ 
+  9, 9, 9,
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+};
+
+int tempo4[]={
+  8,16,16,8,16,8,16,16,16,16,8,16,
+  8,16,16,8,16,8,16,16,16,16,8,16,
+  8,16,16,8,16,8,16,16,16,16,8,16,
+  4,16,8,16,16,16
 };
  
 RC5 rc5(TSOP_PIN); //Informacja o podłączeniu odbiornika TSOP
@@ -170,15 +230,15 @@ void setup() {
   digitalWrite(LED, 0); //Wylaczenie diody
 
 
-int size = sizeof(melody) / sizeof(int);
+int size = sizeof(melody3) / sizeof(int);
  for (int thisNote = 0; thisNote < size; thisNote++) {
 
        // to calculate the note duration, take one second
        // divided by the note type.
        //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
-       int noteDuration = 1000/tempo[thisNote];
+       int noteDuration = 1000/tempo3[thisNote];
 
-       buzz(BUZZER, melody[thisNote],noteDuration);
+       buzz(BUZZER, melody3[thisNote],noteDuration);
 
        // to distinguish the notes, set a minimum time between them.
        // the note's duration + 30% seems to work well:
@@ -244,12 +304,52 @@ void loop() {
         leftMotor(-predkoscObrotu);
         rightMotor(predkoscObrotu);
         break;
+       
      case 8:
         leftMotor(-predkoscObrotu);
         rightMotor(-predkoscObrotu);
         break;
+
+        /*case 7:
+       int size1 = sizeof(melody2) / sizeof(int);
+       
+
+        int counter1 = 0;
+       for (int thisNote = 0; thisNote < size1; thisNote++) {
+      
+             // to calculate the note duration, take one second
+             // divided by the note type.
+             //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
+             int noteDuration = 1000/tempo2[thisNote];
+      
+             buzz(BUZZER, melody2[thisNote],noteDuration);
+      
+             // to distinguish the notes, set a minimum time between them.
+             // the note's duration + 30% seems to work well:
+             int pauseBetweenNotes = noteDuration * 1.30;
+             delay(pauseBetweenNotes);
+      
+             // stop the tone playing:
+             buzz(BUZZER, 0,noteDuration);
+             if(counter1 == 0 )
+            {
+              leftMotor(-predkoscObrotu);
+              rightMotor(predkoscObrotu);
+              counter1 = 1;
+            }
+            else 
+            {
+              leftMotor(predkoscObrotu);
+              rightMotor(-predkoscObrotu);
+              counter1 = 0;
+            }
+          }
+          leftMotor(0);
+          rightMotor(0);
+           break;
+           */
       case 9:
-        int size = sizeof(melody) / sizeof(int);
+        int size = sizeof(melody2) / sizeof(int);
        
 
         int counter = 0;
@@ -258,9 +358,9 @@ void loop() {
              // to calculate the note duration, take one second
              // divided by the note type.
              //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
-             int noteDuration = 1000/tempo[thisNote];
+             int noteDuration = 1000/tempo2[thisNote];
       
-             buzz(BUZZER, melody[thisNote],noteDuration);
+             buzz(BUZZER, melody2[thisNote],noteDuration);
       
              // to distinguish the notes, set a minimum time between them.
              // the note's duration + 30% seems to work well:
@@ -281,15 +381,13 @@ void loop() {
               rightMotor(-predkoscObrotu);
               counter = 0;
             }
-        
-             
-            
           }
 
            leftMotor(0);
            rightMotor(0);
           
       break;
+             
     }
  
      //Jeśli bit toggle jest taki sam jak poprzednio
